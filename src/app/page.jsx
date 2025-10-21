@@ -2,7 +2,6 @@
 import { useRef, useState } from "react";
 
 export default function Home() {
-
   const [images, setImages] = useState([]);
   const imgRef = useRef();
 
@@ -16,6 +15,27 @@ export default function Home() {
     } catch (error) {
       console.error(error);
       alert("Error al obtener las imágenes");
+    }
+  };
+
+  const handleImageClick = async (imgUrl) => {
+    try {
+      const response = await fetch('/api/info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName: 'user', 
+          imgUrl: imgUrl
+        })
+      });
+      
+      if (response.ok) {
+        alert('Imagen guardada exitosamente!');
+      }
+    } catch (error) {
+      console.error('Error al guardar la imagen:', error);
     }
   };
   
@@ -44,7 +64,8 @@ export default function Home() {
                   key={img.id}
                   src={img.webformatURL}
                   alt={img.tags}
-                  className="rounded-lg hover:scale-105 transition-transform duration-300"
+                  className="rounded-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  onClick={() => handleImageClick(img.webformatURL)}
                 />
               </div>
             ))
@@ -53,7 +74,6 @@ export default function Home() {
             No se encontraron imágenes.
           </p>
         )}
-
       </div>
     </div>
   );
