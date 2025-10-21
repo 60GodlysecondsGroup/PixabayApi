@@ -18,7 +18,7 @@ export default function Home() {
     }
   };
 
-  const handleImageClick = async (imgUrl) => {
+  const handleImageClick = async (imgUrl, tags, user) => {
     try {
       const response = await fetch('/api/info', {
         method: 'POST',
@@ -26,8 +26,9 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userName: 'user', 
-          imgUrl: imgUrl
+          userName: user, // Ahora usamos el nombre del usuario de Pixabay
+          imgUrl: imgUrl,
+          tags: tags
         })
       });
       
@@ -40,7 +41,7 @@ export default function Home() {
   };
   
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
+    <div className="bg-gray-900 min-h-screen text-white p-6 flex flex-col items-center justify-center ">
       <form onSubmit={handleSubmit} className="mb-6">
         <label className="mr-2">Buscar:</label>
         <input
@@ -65,7 +66,7 @@ export default function Home() {
                   src={img.webformatURL}
                   alt={img.tags}
                   className="rounded-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
-                  onClick={() => handleImageClick(img.webformatURL)}
+                  onClick={() => handleImageClick(img.webformatURL, img.tags, img.user)}
                 />
               </div>
             ))

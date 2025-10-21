@@ -1,15 +1,14 @@
 import { postImg } from "@/services/img.service.js";
 
 export async function GET(req) {
-    try {
-        const {searchParams} = new URL(req.url);
-        const query = searchParams.get('q') || 'nature';
-        //Request a servicio de API
-        const res = await fetch(
-            `https://pixabay.com/api/?key=${process.env.api_pixa}&q=${query}&image_type=photo`
-        );
-        //Obtencion de Toda la Data Obtenida
-        const data = await res.json();
+  try {
+    const { searchParams } = new URL(req.url);
+    const query = (searchParams.get("q") || "nature").trim();
+
+    const res = await fetch(
+      `https://pixabay.com/api/?key=${process.env.api_pixa}&q=${encodeURIComponent(query)}&image_type=photo`
+    );
+     const data = await res.json();
         //Obtener Solo las imagenes
         const newData = data.hits;
         //Array con busquedas con Ban
@@ -59,16 +58,11 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-    try {
-        //Datos a Recibir
-        const {userName, imgUrl} = await req.json();
-        //Llamado al servicio de Insertar Datos
-        const result = await postImg(userName, imgUrl);
-        //Retornar respuesta
-        return new Response(JSON.stringify({msg:result}), {status:200})
-    } catch (error) {
-        return new Response(JSON.stringify({error}), {status:500})
-    }
-    
-
+  try {
+    const { userName, imgUrl, tags } = await req.json();
+    const result = await postImg(userName, imgUrl, tags);
+    return new Response(JSON.stringify({ msg: result }), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ error }), { status: 500 });
+  }
 }
