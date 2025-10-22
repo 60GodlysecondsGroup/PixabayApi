@@ -12,17 +12,24 @@ export async function GET(req) {
         //Obtener Solo las imagenes
         const newData = data.hits;
         //Array con busquedas con Ban
-        const searchWithBan = ["poor", "black", "poor black", "black poor"];
+        const searchWithBan = [
+            "poor", "black", "poor black", "black poor", "negro", "gente fea", "ugly people",
+            "negros", "black poor people", "poor people", "negros pobres", "pobres", "pobresa",
+            "vagabundos", "vagabundo", "vagabundos pobres", "vagabundo negro", "vagabundo negro",
+            "homeless", "homeless people", "homeless man", "homeless woman", "homeless couple",
+            
+            ];
         //Convertir la query a minusculas (Para Coincidir con los datos dentro del array)
         let lowerQuery = query.toLowerCase();
         //Sí la busqueda coincide con las busquesdas con ban
         if(searchWithBan.includes(lowerQuery)){
             //Array de Tags Prohibidos
             const tagsProhibidos = [
-                "man", "african man", "black man", 
-                "woman", "old man", "homeless man", 
-                "person", "female", "male", "homeless", 
-                "baby", "child", "kid", "children", "african", "beggars", "beggar"
+                "man", "african man", "black man", "poor","poor children", 
+                "woman", "old man", "homeless man", "pobresa",
+                "person", "female", "male", "homeless", "black couple",
+                "baby", "child", "kid", "children", "african", "beggars", "beggar",
+                "negros", "white and negro", "indians", "africa", "poverty", "poor people"
             ];
             /*
             Pasos:

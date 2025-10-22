@@ -41,13 +41,13 @@ export default function Home() {
   };
   
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6 flex flex-col items-center justify-center ">
+    <div className=" min-h-screen text-white p-6 flex flex-col items-center justify-center " style={{ backgroundImage: `url('fondo.gif')`, backgroundSize: 'cover' }} >
       <form onSubmit={handleSubmit} className="mb-6">
-        <label className="mr-2">Buscar:</label>
+        <label className="mr-2  ">Buscar:</label>
         <input
           ref={imgRef}
           type="text"
-          className="text-white p-1 rounded"
+          className="text-white p-1 rounded border border-gray-600 bg-gray-800 focus:outline-none focus:border-blue-500"
           placeholder="ej. cats"
         />
         <button type="submit" className="ml-2 bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">
